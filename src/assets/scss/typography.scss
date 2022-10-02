@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700&display=swap');
+$jetBrainsMono: 'JetBrains Mono', monospace;
+
+body,
+.body {
+    font-family: $jetBrainsMono;
+    font-size: 18px;
+    line-height: 23px;
+}
+
+.heading {
+    font-family: $jetBrainsMono;
+
+    &--lg {
+        font-size: 32px;
+        line-height: 43px;
+    }
+
+    &--md {
+        font-size: 24px;
+        line-height: 31px;
+    }
+}
