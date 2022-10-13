@@ -44,14 +44,29 @@
           </div>
         </div>
         <div class="pw-gen__strength">
-          <div></div>
+          <div class="pw-gen__strength-title">Strength</div>
+          <div class="pw-gen__strength-levels">
+            <span class="pw-gen__strength-label">Medium</span>
+            <ul class="pw-gen__strength-bar">
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+            </ul>
+          </div>
         </div>
+        <button class="pw-gen__generate-btn">
+          Generate
+          <span><img :src="genBtnArrow" /></span>
+        </button>
       </div>
     </div>
   </div>
 </template>
 <script>
 import copyImg from "../assets/images/Shape.svg";
+import genBtnArrow from "../assets/images/bx_arrow-to-left.svg";
+
 export default {
   props: {
     value: {
@@ -70,6 +85,7 @@ export default {
   data() {
     return {
       copyImg,
+      genBtnArrow,
       currentValue: this.value,
     };
   },
@@ -178,6 +194,67 @@ export default {
 
     .body {
       padding: 15px;
+    }
+  }
+
+  &__strength {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 72px;
+    background: $app-black;
+    margin: 32px 0;
+
+    &-title {
+      color: $app-gray;
+      text-transform: uppercase;
+      font-size: 18px;
+      margin-left: 32px;
+    }
+
+    &-label {
+      text-transform: uppercase;
+      margin-right: 15px;
+      font-size: 24px;
+    }
+
+    &-levels {
+      display: flex;
+      align-items: center;
+      margin-right: 32px;
+
+      ul {
+        display: inline-grid;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        grid-template-columns: repeat(4, 14px);
+        gap: 8px;
+
+        li {
+          background: transparent;
+          border: 2px $app-white solid;
+          height: 28px;
+          width: 10px;
+        }
+      }
+    }
+  }
+
+  &__generate-btn {
+    background: $app-green;
+    text-align: center;
+    color: $app-black;
+    height: 65px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+
+    span {
+      margin-left: 24px;
     }
   }
 }
