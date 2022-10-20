@@ -59,9 +59,17 @@
             </ul>
           </div>
         </div>
-        <button class="pw-gen__generate-btn">
-          Generate
-          <span><img :src="genBtnArrow" /></span>
+        <button
+          @mouseover="btnHover = true"
+          @mouseleave="btnHover = flase"
+          :class="{ active: btnHover }"
+          class="pw-gen__generate-btn"
+        >
+          <span>Generate</span>
+          <div>
+            <span v-if="!btnHover"><img :src="genBtnArrow" /></span>
+            <span v-else-if="btnHover"><img :src="genBtnArrowHover" /></span>
+          </div>
         </button>
       </div>
     </div>
@@ -70,6 +78,7 @@
 <script>
 import copyImg from "../assets/images/Shape.svg";
 import genBtnArrow from "../assets/images/bx_arrow-to-left.svg";
+import genBtnArrowHover from "../assets/images/bx_arrow-to-left-hover.svg";
 
 export default {
   props: {
@@ -90,7 +99,9 @@ export default {
     return {
       copyImg,
       genBtnArrow,
+      genBtnArrowHover,
       currentValue: this.value,
+      btnHover: false,
     };
   },
 };
@@ -126,10 +137,6 @@ export default {
       color: $app-green;
     }
   }
-
-  /* @function webkit-slider-thumb-shadow($i: 1) {
-    display: block;
-  } */
 
   &__slider {
     margin-top: 10px;
@@ -286,6 +293,7 @@ export default {
 
     span {
       margin-left: 24px;
+      display: flex;
     }
   }
 }
