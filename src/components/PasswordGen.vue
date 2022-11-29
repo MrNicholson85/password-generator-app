@@ -27,20 +27,24 @@
         </div>
         <div class="pw-gen__pw-option">
           <div class="pw-gen__pw-option-item">
-            <input type="checkbox" id="checkbox" v-model="checked" />
-            <label for="checkbox" class="body">Include Uppercase Letters</label>
+            <input type="checkbox" id="checkbox-upper" v-model="checked" />
+            <label for="checkbox-upper" class="body">
+              Include Uppercase Letters
+            </label>
           </div>
           <div class="pw-gen__pw-option-item">
-            <input type="checkbox" id="checkbox" v-model="checked" />
-            <label for="checkbox" class="body">Include Lowercase Letters</label>
+            <input type="checkbox" id="checkbox-lower" v-model="checked" />
+            <label for="checkbox-lower" class="body">
+              Include Lowercase Letters
+            </label>
           </div>
           <div class="pw-gen__pw-option-item">
-            <input type="checkbox" id="checkbox" v-model="checked" />
-            <label for="checkbox" class="body">Include Numbers</label>
+            <input type="checkbox" id="checkbox-number" v-model="checked" />
+            <label for="checkbox-number" class="body">Include Numbers</label>
           </div>
           <div class="pw-gen__pw-option-item">
-            <input type="checkbox" id="checkbox" v-model="checked" />
-            <label for="checkbox" class="body">Include Symbols</label>
+            <input type="checkbox" id="checkbox-sym" v-model="checked" />
+            <label for="checkbox-sym" class="body">Include Symbols</label>
           </div>
         </div>
         <div class="pw-gen__strength">
@@ -195,6 +199,24 @@ export default {
     .body {
       padding: 15px;
     }
+
+    &-item {
+      display: flex;
+      align-items: center;
+      column-gap: 20px;
+
+      input {
+        width: 21px;
+        height: 21px;
+        cursor: pointer;
+      }
+
+      label.body {
+        padding: 0;
+        margin: 0;
+        cursor: pointer;
+      }
+    }
   }
 
   &__strength {
@@ -245,6 +267,7 @@ export default {
   &__generate-btn {
     background: $app-green;
     text-align: center;
+    width: 100%;
     color: $app-black;
     height: 65px;
     text-transform: uppercase;
@@ -252,6 +275,14 @@ export default {
     align-items: center;
     justify-content: center;
     margin-bottom: 10px;
+    border: 0 transparent solid;
+    cursor: pointer;
+
+    &:hover {
+      background-color: transparent;
+      border: 2px solid $app-green;
+      color: $app-green;
+    }
 
     span {
       margin-left: 24px;
