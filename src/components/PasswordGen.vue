@@ -1,7 +1,7 @@
 <template>
   <div class="pw-gen">
-    <div class="heading heading--md">Password Generator</div>
     <div class="pw-gen__container">
+      <div class="heading heading--md">Password Generator</div>
       <div class="pw-gen__pw-display">
         <div class="pw-gen__pw-text">
           {{ password || "password display here" }}
@@ -56,12 +56,21 @@
         <div class="pw-gen__strength">
           <div class="pw-gen__strength-title">Strength</div>
           <div class="pw-gen__strength-levels">
-            <span class="pw-gen__strength-label">Medium</span>
+            <span
+              class="pw-gen__strength-label"
+              :style="{ color: strengthColor }"
+              >{{ strengthLabel }}</span
+            >
             <ul class="pw-gen__strength-bar">
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
+              <li
+                v-for="n in 4"
+                :key="n"
+                :style="{
+                  background:
+                    n <= strengthLevel ? strengthColor : 'transparent',
+                  borderColor: n <= strengthLevel ? strengthColor : '',
+                }"
+              ></li>
             </ul>
           </div>
         </div>
@@ -156,16 +165,71 @@ export default {
 
       this.password = result;
     },
+    onInput(e) {
+      // keep currentValue synced as a number/string from the range input
+      this.currentValue = e.target.value;
+    },
+  },
+  computed: {
+    // strength level 1..4
+    strengthLevel() {
+      const length = Number(this.currentValue) || 0;
+      let score = 0;
+      if (length >= 8) score++;
+      if (this.includeLower) score++;
+      if (this.includeUpper) score++;
+      if (this.includeNumbers) score++;
+      if (this.includeSymbols) score++;
+
+      // map score to 1..4
+      if (score <= 1) return 1;
+      if (score === 2) return 2;
+      if (score === 3) return 3;
+      return 4;
+    },
+    strengthLabel() {
+      switch (this.strengthLevel) {
+        case 1:
+          return "Weak";
+        case 2:
+          return "Fair";
+        case 3:
+          return "Good";
+        case 4:
+        default:
+          return "Strong";
+      }
+    },
+    strengthColor() {
+      switch (this.strengthLevel) {
+        case 1:
+          return "#e74c3c"; // red
+        case 2:
+          return "#f39c12"; // orange
+        case 3:
+          return "#f1c40f"; // yellow
+        case 4:
+        default:
+          return "#2ecc71"; // green
+      }
+    },
   },
 };
 </script>
+
 <style lang="scss">
 @import "@/assets/scss/typography.scss";
 @import "@/assets/scss/variables.scss";
 
 .pw-gen {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0 16px;
+
   &__container {
-    width: 540px;
+    width: 100%;
+    max-width: 540px;
     margin: 0 auto;
   }
 
