@@ -27,18 +27,28 @@
             :max="20"
             class="slider"
             @input="onInput"
-            label="password slider"
+            aria-label="password slider"
           />
         </div>
         <div class="pw-gen__pw-option">
           <div class="pw-gen__pw-option-item">
-            <input type="checkbox" id="checkbox-upper" v-model="includeUpper" />
+            <input
+              type="checkbox"
+              id="checkbox-upper"
+              v-model="includeUpper"
+              aria-label="uppercase checkbox"
+            />
             <label for="checkbox-upper" class="body">
               Include Uppercase Letters
             </label>
           </div>
           <div class="pw-gen__pw-option-item">
-            <input type="checkbox" id="checkbox-lower" v-model="includeLower" />
+            <input
+              type="checkbox"
+              id="checkbox-lower"
+              v-model="includeLower"
+              aria-label="lowercase checkbox"
+            />
             <label for="checkbox-lower" class="body">
               Include Lowercase Letters
             </label>
@@ -48,11 +58,17 @@
               type="checkbox"
               id="checkbox-number"
               v-model="includeNumbers"
+              aria-label="number checkbox"
             />
             <label for="checkbox-number" class="body">Include Numbers</label>
           </div>
           <div class="pw-gen__pw-option-item">
-            <input type="checkbox" id="checkbox-sym" v-model="includeSymbols" />
+            <input
+              type="checkbox"
+              id="checkbox-sym"
+              v-model="includeSymbols"
+              aria-label="include symbols"
+            />
             <label for="checkbox-sym" class="body">Include Symbols</label>
           </div>
         </div>
