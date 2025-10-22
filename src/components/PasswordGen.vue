@@ -6,7 +6,9 @@
         <div class="pw-gen__pw-text">
           {{ password || "password display here" }}
         </div>
-        <span class="pw-gen__copy-icon"><img :src="copyImg" /></span>
+        <span class="pw-gen__copy-icon"
+          ><img :src="copyImg" alt="copy-icon"
+        /></span>
       </div>
       <div class="pw-gen__generator">
         <div class="pw-gen__generator-char-limit">
@@ -25,6 +27,7 @@
             :max="20"
             class="slider"
             @input="onInput"
+            label="password slider"
           />
         </div>
         <div class="pw-gen__pw-option">
@@ -83,8 +86,12 @@
         >
           <span>Generate</span>
           <div>
-            <span v-if="!btnHover"><img :src="genBtnArrow" /></span>
-            <span v-else-if="btnHover"><img :src="genBtnArrowHover" /></span>
+            <span v-if="!btnHover"
+              ><img :src="genBtnArrow" alt="arrow-icon"
+            /></span>
+            <span v-else-if="btnHover"
+              ><img :src="genBtnArrowHover" alt="arrow-icon"
+            /></span>
           </div>
         </button>
       </div>
