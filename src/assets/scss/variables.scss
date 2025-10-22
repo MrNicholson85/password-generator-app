@@ -1,12 +1,12 @@
 // App colors
-$app-coal: #24232C;
-$app-gray: #817D92;
-$app-white: #E6E5EA;
-$app-black: #18171F;
-$app-green: #A4FFAF;
-$app-red: #F64A4A;
-$app-orange: #FB7C58;
-$app-yeallow: #F8CD65;
+$app-coal: #24232c;
+$app-gray: #817d92;
+$app-white: #e6e5ea;
+$app-black: #18171f;
+$app-green: #a4ffaf;
+$app-red: #f64a4a;
+$app-orange: #fb7c58;
+$app-yeallow: #f8cd65;
 
 // slider input vars
 $upper-color: $app-black;
@@ -18,17 +18,19 @@ $height: 30px;
 $thumb-height: 18px;
 $track-height: 8px;
 
-$upper-background: linear-gradient(to bottom, $upper-color, $upper-color) 100% 50% / 100% $track-height no-repeat transparent;
-$lower-background: linear-gradient(to bottom, $lower-color, $lower-color) 100% 50% / 100% $track-height no-repeat transparent;
+$upper-background: linear-gradient(to bottom, $upper-color, $upper-color) 100%
+  50% / 100% $track-height no-repeat transparent;
+$lower-background: linear-gradient(to bottom, $lower-color, $lower-color) 100%
+  50% / 100% $track-height no-repeat transparent;
 
 // Webkit cannot style progress so we fake it with a long shadow
 // on the thumb element
 @function webkit-slider-thumb-shadow($i: 1) {
-$val: #{$i}px 0 0 -#{($thumb-height - $track-height) / 2} #{$upper-color};
-@if $i == 1 {
+  $val: #{$i}px 0 0 -#{($thumb-height - $track-height) / 2} #{$upper-color};
+  @if $i == 1 {
     @for $k from 2 through 1000 {
-    $val: #{$val}, webkit-slider-thumb-shadow($k);
+      $val: #{$val}, webkit-slider-thumb-shadow($k);
     }
-}
-@return $val;
+  }
+  @return $val;
 }
