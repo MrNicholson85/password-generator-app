@@ -19,7 +19,9 @@
           </div>
         </div>
         <div class="pw-gen__slider">
+          <label for="password-length" class="sr-only">Password Length</label>
           <input
+            id="password-length"
             ref="input"
             v-model="currentValue"
             type="range"
@@ -27,7 +29,6 @@
             :max="20"
             class="slider"
             @input="onInput"
-            aria-label="password slider"
           />
         </div>
         <div class="pw-gen__pw-option">
@@ -243,6 +244,18 @@ export default {
 <style lang="scss">
 @import "@/assets/scss/typography.scss";
 @import "@/assets/scss/variables.scss";
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
 
 .pw-gen {
   display: grid;
