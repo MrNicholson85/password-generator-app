@@ -3,7 +3,9 @@
     <div class="heading heading--md">Password Generator</div>
     <div class="pw-gen__container">
       <div class="pw-gen__pw-display">
-        password display here
+        <div class="pw-gen__pw-text">
+          {{ password || "password display here" }}
+        </div>
         <span class="pw-gen__copy-icon"><img :src="copyImg" /></span>
       </div>
       <div class="pw-gen__generator">
@@ -27,23 +29,27 @@
         </div>
         <div class="pw-gen__pw-option">
           <div class="pw-gen__pw-option-item">
-            <input type="checkbox" id="checkbox-upper" v-model="checked" />
+            <input type="checkbox" id="checkbox-upper" v-model="includeUpper" />
             <label for="checkbox-upper" class="body">
               Include Uppercase Letters
             </label>
           </div>
           <div class="pw-gen__pw-option-item">
-            <input type="checkbox" id="checkbox-lower" v-model="checked" />
+            <input type="checkbox" id="checkbox-lower" v-model="includeLower" />
             <label for="checkbox-lower" class="body">
               Include Lowercase Letters
             </label>
           </div>
           <div class="pw-gen__pw-option-item">
-            <input type="checkbox" id="checkbox-number" v-model="checked" />
+            <input
+              type="checkbox"
+              id="checkbox-number"
+              v-model="includeNumbers"
+            />
             <label for="checkbox-number" class="body">Include Numbers</label>
           </div>
           <div class="pw-gen__pw-option-item">
-            <input type="checkbox" id="checkbox-sym" v-model="checked" />
+            <input type="checkbox" id="checkbox-sym" v-model="includeSymbols" />
             <label for="checkbox-sym" class="body">Include Symbols</label>
           </div>
         </div>
@@ -60,8 +66,9 @@
           </div>
         </div>
         <button
+          @click="generatePassword"
           @mouseover="btnHover = true"
-          @mouseleave="btnHover = flase"
+          @mouseleave="btnHover = false"
           :class="{ active: btnHover }"
           class="pw-gen__generate-btn"
         >
@@ -102,7 +109,53 @@ export default {
       genBtnArrowHover,
       currentValue: this.value,
       btnHover: false,
+      // password and options
+      password: "",
+      includeUpper: true,
+      includeLower: true,
+      includeNumbers: true,
+      includeSymbols: false,
     };
+  },
+  methods: {
+    generatePassword() {
+      const length = Number(this.currentValue) || 10;
+      const upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      const lower = "abcdefghijklmnopqrstuvwxyz";
+      const numbers = "0123456789";
+      const symbols = "!@#$%^&*()_+[]{}|;:,.<>?/~`-=";
+
+      let charset = "";
+      if (this.includeUpper) charset += upper;
+      if (this.includeLower) charset += lower;
+      if (this.includeNumbers) charset += numbers;
+      if (this.includeSymbols) charset += symbols;
+
+      if (!charset) {
+        // nothing selected, set empty password
+        this.password = "";
+        return;
+      }
+
+      let result = "";
+      const cryptoObj = window.crypto || window.msCrypto;
+      if (cryptoObj && cryptoObj.getRandomValues) {
+        // use crypto for better randomness
+        const randomValues = new Uint32Array(length);
+        cryptoObj.getRandomValues(randomValues);
+        for (let i = 0; i < length; i++) {
+          const idx = randomValues[i] % charset.length;
+          result += charset.charAt(idx);
+        }
+      } else {
+        for (let i = 0; i < length; i++) {
+          const idx = Math.floor(Math.random() * charset.length);
+          result += charset.charAt(idx);
+        }
+      }
+
+      this.password = result;
+    },
   },
 };
 </script>
